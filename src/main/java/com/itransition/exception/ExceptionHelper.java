@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ public class ExceptionHelper {
     public ResponseEntity<?> exceptionHandler(RestException e) {
         return ResponseEntity
                 .status(e.getStatus())
-                .body(new ApiResult<>(false, List.of(new ErrorData(e.getMessage(), e.getStatus().value()))));
+                .body(new ApiResult<>(false, Arrays.asList(new ErrorData(e.getMessage(), e.getStatus().value()))));
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})

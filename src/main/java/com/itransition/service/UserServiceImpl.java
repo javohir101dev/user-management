@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResult<List<UserDto>> getList(Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isEmpty()) throw RestException.badRequest("Account deleted");
+        if (!optionalUser.isPresent()) throw RestException.badRequest("Account deleted");
 
         User user1 = optionalUser.get();
         if (!user1.isStatus()) throw RestException.badRequest("Account blocked");
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 //        }
 
         Optional<User> byId = userRepository.findById(currentId);
-        if (byId.isEmpty()) {
+        if (!byId.isPresent()) {
             throw  RestException.badRequest("You can't delete users, your account deleted");
         }
 
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
     public ApiResult<?> checkCurrentUser(Integer id) {
 
         Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) {
+        if (!byId.isPresent()) {
             throw  RestException.badRequest("You can't delete users, your account deleted");
         }
 

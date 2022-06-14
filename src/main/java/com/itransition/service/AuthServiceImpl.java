@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService{
     @Override
     public ApiResult<?> login(LoginDto dto) {
         Optional<User> byEmailAndPassword = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
-        if (byEmailAndPassword.isEmpty()){
+        if (!byEmailAndPassword.isPresent()){
             throw  RestException.badRequest("This email or password incorrect!" );
         }
         User user = byEmailAndPassword.get();
